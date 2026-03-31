@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, Variants } from "framer-motion";
 import { Quote, Star, ChevronLeft, ChevronRight } from "lucide-react";
 
 const reviews = [
@@ -29,7 +29,7 @@ const reviews = [
 
 export default function AdvancedTestimonials() {
   const [index, setIndex] = useState(0);
-  const [direction, setDirection] = useState(0); // -1 for left, 1 for right
+  const [direction, setDirection] = useState(0);
 
   const nextStep = () => {
     setDirection(1);
@@ -46,26 +46,35 @@ export default function AdvancedTestimonials() {
     return () => clearInterval(interval);
   }, []);
 
-  const variants = {
+  // ✅ FIXED TYPESAFE VARIANTS
+  const variants: Variants = {
     enter: (direction: number) => ({
       x: direction > 0 ? 100 : -100,
       opacity: 0,
       scale: 0.9,
       rotateY: direction > 0 ? 45 : -45,
     }),
+
     center: {
       x: 0,
       opacity: 1,
       scale: 1,
       rotateY: 0,
-      transition: { duration: 0.6, type: "spring", stiffness: 300, damping: 30 },
+      transition: {
+        duration: 0.6,
+        ease: "easeInOut", // ✅ FIX
+      },
     },
+
     exit: (direction: number) => ({
       x: direction > 0 ? -100 : 100,
       opacity: 0,
       scale: 0.9,
       rotateY: direction > 0 ? -45 : 45,
-      transition: { duration: 0.4 },
+      transition: {
+        duration: 0.4,
+        ease: "easeInOut", // ✅ FIX
+      },
     }),
   };
 
@@ -93,7 +102,7 @@ export default function AdvancedTestimonials() {
         </div>
 
         {/* 💬 INTERACTIVE STACK */}
-        <div className="relative perspective-1000 h-[400px] md:h-[350px]">
+        <div className="relative perspective-1000 h-[420px] sm:h-[400px] md:h-[350px]">
           <AnimatePresence initial={false} custom={direction} mode="wait">
             <motion.div
               key={index}
@@ -135,7 +144,7 @@ export default function AdvancedTestimonials() {
             </motion.div>
           </AnimatePresence>
 
-          {/* Navigation Buttons (Desktop) */}
+          {/* Navigation Buttons */}
           <div className="hidden md:block">
             <button 
               onClick={prevStep}
@@ -152,7 +161,7 @@ export default function AdvancedTestimonials() {
           </div>
         </div>
 
-        {/* 🔘 MODERN PROGRESS INDICATORS */}
+        {/* Indicators */}
         <div className="flex justify-center gap-6 mt-20">
           {reviews.map((_, i) => (
             <button
@@ -166,7 +175,6 @@ export default function AdvancedTestimonials() {
               <div className={`h-1 transition-all duration-500 rounded-full ${
                 i === index ? "w-12 bg-[#0f7b65]" : "w-4 bg-[#0f7b65]/20 group-hover:bg-[#0f7b65]/40"
               }`} />
-              {/* Tooltip on hover */}
               <span className="absolute -top-8 left-1/2 -translate-x-1/2 text-[9px] font-bold text-[#0f7b65] opacity-0 group-hover:opacity-100 transition-opacity">
                 0{i + 1}
               </span>
