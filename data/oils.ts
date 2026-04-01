@@ -9,18 +9,18 @@ export const oils = [
     id: 2,
     name: "Groundnut Oil",
     price: 399,
-    image: "/images/groundnut.jpg",
+    image: "/images/oils/groundnut.png",
   },
   {
     id: 3,
     name: "Mustard Oil",
     price: 349,
-    image: "/images/mustard.jpg",
+    image: "/images/oils/mustard.png",
   },
   {
     id: 4,
     name: "Sesame Oil",
     price: 599,
-    image: "/images/sesame.jpg",
+    image: "/images/oils/sesame.png",
   },
 ];

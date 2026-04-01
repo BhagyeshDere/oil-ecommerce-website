@@ -1,5 +1,3 @@
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
 
 import Hero from "@/components/home/Hero";
 import Categories from "@/components/home/Categories";
@@ -13,8 +11,7 @@ export default function Home() {
   return (
     <main className="bg-white">
 
-      {/* 🔝 Navbar */}
-      <Navbar />
+     
 
       {/* 🏠 Hero */}
       <Hero />
@@ -37,8 +34,7 @@ export default function Home() {
       {/* 💬 Testimonials */}
       <Testimonials />
 
-      {/* 📦 Footer */}
-      <Footer />
+      
 
     </main>
   );
