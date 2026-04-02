@@ -83,7 +83,7 @@ export default function LoginPage() {
                 <input
                   type="email"
                   placeholder="nature@prasatti.com"
-                  className="w-full pl-12 pr-4 py-4 bg-black/20 border border-white/5 rounded-2xl text-white placeholder:text-white/10 focus:bg-black/40 focus:border-[#c8a24c]/50 focus:ring-4 focus:ring-[#c8a24c]/5 outline-none transition-all duration-500"
+                  className="w-full pl-12 pr-4 py-4 bg-black/20 border border-white/5 rounded-2xl text-white placeholder:text-white/30 focus:bg-black/40 focus:border-[#c8a24c]/50 focus:ring-4 focus:ring-[#c8a24c]/5 outline-none transition-all duration-500"
                 />
               </div>
             </div>
@@ -103,7 +103,7 @@ export default function LoginPage() {
                 <input
                   type={showPassword ? "text" : "password"}
                   placeholder="••••••••"
-                  className="w-full pl-12 pr-12 py-4 bg-black/20 border border-white/5 rounded-2xl text-white placeholder:text-white/10 focus:bg-black/40 focus:border-[#c8a24c]/50 focus:ring-4 focus:ring-[#c8a24c]/5 outline-none transition-all duration-500"
+                  className="w-full pl-12 pr-12 py-4 bg-black/20 border border-white/5 rounded-2xl text-white placeholder:text-white/30 focus:bg-black/40 focus:border-[#c8a24c]/50 focus:ring-4 focus:ring-[#c8a24c]/5 outline-none transition-all duration-500"
                 />
                 <button 
                   type="button"
@@ -118,7 +118,10 @@ export default function LoginPage() {
             {/* ACTION BUTTON */}
             <div className="pt-4">
               <motion.button
-                whileHover={{ y: -2, shadow: "0 20px 40px -12px rgba(200, 162, 76, 0.4)" }}
+                whileHover={{ 
+                  y: -2, 
+                  boxShadow: "0 20px 40px -12px rgba(200, 162, 76, 0.4)" 
+                }}
                 whileTap={{ scale: 0.98 }}
                 className="group relative w-full py-5 bg-[#c8a24c] rounded-2xl overflow-hidden shadow-xl transition-all duration-500"
               >
@@ -138,7 +141,7 @@ export default function LoginPage() {
                 New to the collection?{" "}
                 <Link 
                   href="/register" 
-                  className="text-[#c8a24c] hover:text-white transition-colors"
+                  className="text-[#c8a24c] hover:text-white transition-colors underline underline-offset-4 decoration-[#c8a24c]/30"
                 >
                   Request Access
                 </Link>
@@ -154,9 +157,12 @@ export default function LoginPage() {
         </div>
       </motion.div>
 
-      {/* Decorative Corner Element */}
+      {/* Decorative Corner Element - Fixed Styles */}
       <div className="absolute bottom-10 right-10 hidden lg:block">
-        <p className="text-[10px] text-white/10 uppercase tracking-[1em] vertical-text transform rotate-180" style={{ writingMode: 'vertical-rl' }}>
+        <p 
+          className="text-[10px] text-white/10 uppercase tracking-[1em] transform rotate-180" 
+          style={{ writingMode: 'vertical-rl' }}
+        >
           PRASATTI ORGANICS 2026
         </p>
       </div>
