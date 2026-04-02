@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
-// ✅ IMPORT WRAPPER (IMPORTANT)
+// ✅ IMPORTS
 import LayoutWrapper from "@/components/layout/LayoutWrapper";
+import { CartProvider } from "@/context/CartContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,8 +33,13 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col">
 
-        {/* ✅ USE WRAPPER INSTEAD OF NAVBAR/FOOTER */}
-        <LayoutWrapper>{children}</LayoutWrapper>
+        {/* ✅ CART PROVIDER (GLOBAL STATE) */}
+        <CartProvider>
+
+          {/* ✅ YOUR LAYOUT */}
+          <LayoutWrapper>{children}</LayoutWrapper>
+
+        </CartProvider>
 
       </body>
     </html>

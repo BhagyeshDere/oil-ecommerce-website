@@ -1,12 +1,16 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import Link from "next/link"; // ✅ ADDED
+import Link from "next/link";
 import { ShoppingCart, User, Search, MapPin, ChevronRight, Leaf, Menu, X } from "lucide-react";
+import { useCart } from "@/context/CartContext";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  
+  // ✅ Access dynamic cart data
+  const { cart } = useCart();
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -59,7 +63,7 @@ export default function Navbar() {
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
 
-          {/* ✅ LOGO LINK ADDED */}
+          {/* Logo */}
           <Link href="/" className="flex-shrink-0 cursor-pointer relative group flex items-center gap-2">
             <div className="flex flex-col leading-none">
               <span className="text-[#0b3d33] font-serif text-xl md:text-3xl font-black tracking-tighter group-hover:text-[#0f7b65] transition-colors">
@@ -94,7 +98,7 @@ export default function Navbar() {
           {/* Actions */}
           <div className="flex items-center gap-1 md:gap-3">
 
-            {/* ✅ ACCOUNT LINK */}
+            {/* Account */}
             <Link href="/login" className="hidden sm:flex items-center gap-2 px-3 md:px-4 py-2.5 rounded-xl hover:bg-[#0b3d33]/5 transition-all group">
               <User size={20} className="text-[#0b3d33] group-hover:scale-110 transition-all" />
               <span className="text-[11px] font-black text-[#0b3d33] hidden xl:block uppercase tracking-wider">Account</span>
@@ -102,13 +106,13 @@ export default function Navbar() {
 
             <div className="hidden sm:block w-[1px] h-5 bg-gray-200 mx-1" />
 
-            {/* ✅ CART LINK */}
+            {/* Dynamic Cart Link */}
             <Link href="/cart" className="relative flex items-center gap-2 md:gap-3 px-4 md:px-5 py-2.5 bg-[#0b3d33] text-white rounded-xl hover:shadow-[0_15px_30px_rgba(11,61,51,0.2)] transition-all group active:scale-95 overflow-hidden">
               <div className="relative z-10 flex items-center gap-2">
                 <div className="relative">
                   <ShoppingCart size={18} className="md:size-[19px] group-hover:-rotate-12 transition-transform text-[#c8a24c]" />
-                  <span className="absolute -top-3 -right-3 bg-[#c8a24c] text-[#0b3d33] text-[8px] md:text-[9px] font-black w-4 h-4 md:w-5 md:h-5 flex items-center justify-center rounded-full border-2 border-[#0b3d33] shadow-md">
-                    0
+                  <span className="absolute -top-3 -right-3 bg-[#c8a24c] text-[#0b3d33] text-[8px] md:text-[9px] font-black min-w-4 h-4 md:min-w-5 md:h-5 px-1 flex items-center justify-center rounded-full border-2 border-[#0b3d33] shadow-md transition-all">
+                    {cart.length}
                   </span>
                 </div>
                 <span className="text-[10px] md:text-[11px] font-black hidden md:block uppercase tracking-wider">Cart</span>
@@ -117,11 +121,11 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* Categories */}
+        {/* Categories Nav */}
         <div className="flex justify-center border-t border-gray-100 bg-white/50 backdrop-blur-md overflow-hidden">
           <nav className="flex gap-6 md:gap-10 px-4 md:px-8 py-3.5 overflow-x-auto no-scrollbar w-full justify-start lg:justify-center">
             {categories.map((item, index) => (
-              <div key={index} className="relative flex items-center gap-2 cursor-pointer whitespace-nowrap text-[9px] md:text-[10px] font-extrabold text-[#0b3d33]/60 hover:text-[#0b3d33] uppercase tracking-[0.2em]">
+              <div key={index} className="relative flex items-center gap-2 cursor-pointer whitespace-nowrap text-[9px] md:text-[10px] font-extrabold text-[#0b3d33]/60 hover:text-[#0b3d33] uppercase tracking-[0.2em] transition-colors">
                 {item}
               </div>
             ))}
@@ -129,22 +133,21 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* 📱 Mobile Menu */}
+      {/* 📱 Mobile Menu Sidebar */}
       <div className={`lg:hidden fixed inset-0 bg-[#0b3d33] z-[60] transition-transform duration-500 ${isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"}`}>
         <div className="p-8">
           <div className="flex justify-between items-center mb-12">
             <span className="text-white font-serif text-2xl font-black italic">PRASATTI</span>
-            <button onClick={() => setIsMobileMenuOpen(false)} className="text-[#c8a24c}">
+            <button onClick={() => setIsMobileMenuOpen(false)} className="text-[#c8a24c]">
               <X size={32} />
             </button>
           </div>
 
-          {/* ✅ MOBILE LINKS FIXED */}
           <div className="flex flex-col gap-8">
-            <Link href="/products" className="text-white/70 text-xl font-bold uppercase tracking-widest hover:text-[#c8a24c]">Shop All</Link>
-            <Link href="/about" className="text-white/70 text-xl font-bold uppercase tracking-widest hover:text-[#c8a24c]">Our Story</Link>
-            <Link href="/login" className="text-white/70 text-xl font-bold uppercase tracking-widest hover:text-[#c8a24c]">My Account</Link>
-            <Link href="/contact" className="text-white/70 text-xl font-bold uppercase tracking-widest hover:text-[#c8a24c]">Contact</Link>
+            <Link onClick={() => setIsMobileMenuOpen(false)} href="/products" className="text-white/70 text-xl font-bold uppercase tracking-widest hover:text-[#c8a24c] transition-colors">Shop All</Link>
+            <Link onClick={() => setIsMobileMenuOpen(false)} href="/about" className="text-white/70 text-xl font-bold uppercase tracking-widest hover:text-[#c8a24c] transition-colors">Our Story</Link>
+            <Link onClick={() => setIsMobileMenuOpen(false)} href="/login" className="text-white/70 text-xl font-bold uppercase tracking-widest hover:text-[#c8a24c] transition-colors">My Account</Link>
+            <Link onClick={() => setIsMobileMenuOpen(false)} href="/contact" className="text-white/70 text-xl font-bold uppercase tracking-widest hover:text-[#c8a24c] transition-colors">Contact</Link>
           </div>
         </div>
       </div>
