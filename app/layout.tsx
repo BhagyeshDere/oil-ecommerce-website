@@ -2,10 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
-// ✅ COMPONENTS
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
-import WhatsappButton from "@/components/common/WhatsappButton";
+// ✅ IMPORT WRAPPER (IMPORTANT)
+import LayoutWrapper from "@/components/layout/LayoutWrapper";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,19 +32,8 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col">
 
-        {/* ✅ GLOBAL NAVBAR */}
-        <Navbar />
-
-        {/* ✅ MAIN CONTENT AREA */}
-        <main className="flex-1">
-          {children}
-        </main>
-
-        {/* ✅ GLOBAL FOOTER */}
-        <Footer />
-
-        {/* ✅ WHATSAPP BUTTON */}
-        <WhatsappButton />
+        {/* ✅ USE WRAPPER INSTEAD OF NAVBAR/FOOTER */}
+        <LayoutWrapper>{children}</LayoutWrapper>
 
       </body>
     </html>

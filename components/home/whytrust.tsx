@@ -2,6 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import {
   Droplet,
   Leaf,
@@ -39,113 +40,115 @@ const features = [
 
 export default function AdvancedTrust() {
   return (
-    <section className="relative py-32 px-6 overflow-hidden bg-[#fdfcf9]">
+    <section className="relative min-h-[140vh] w-full overflow-visible bg-black">
       
-      {/* 🌫️ KINETIC ENERGY FIELD (Amended for Purity Theme) */}
-      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-        <motion.div 
-          animate={{ 
-            x: [0, 50, 0],
-            y: [0, 30, 0],
-            scale: [1, 1.1, 1]
-          }}
-          transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-1/4 left-1/4 w-[800px] h-[800px] bg-emerald-100/40 rounded-full blur-[140px]" 
+      {/* 🖼️ THE STICKY BACKGROUND LAYER - Brightened & Masked */}
+      <div className="sticky top-0 h-screen w-full overflow-hidden z-0">
+        <Image
+          src="/images/oil-bg.png"
+          alt="Purity Background"
+          fill
+          className="object-cover opacity-80" // Removed brightness/contrast filters
+          priority
         />
-        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/natural-paper.png')] opacity-20" />
+        
+        {/* Advanced Radial Mask: Keeps center clear, fades edges to black */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_10%,black_90%)]" />
+        
+        {/* Vertical gradient to blend with surrounding sections */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black opacity-60" />
+        
+        {/* Subtle Paper Texture */}
+        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/natural-paper.png')] opacity-5 pointer-events-none" />
       </div>
 
-      <div className="max-w-7xl mx-auto relative z-10">
-        
-        {/* 🔥 MINIMALIST HEADER */}
-        <div className="flex flex-col items-center text-center mb-32">
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            className="flex items-center gap-3 mb-6"
-          >
-            <div className="h-[1px] w-12 bg-[#c8a24c]/40" />
-            <span className="text-[10px] font-black uppercase tracking-[0.5em] text-[#1F7A63]">The Standard</span>
-            <div className="h-[1px] w-12 bg-[#c8a24c]/40" />
-          </motion.div>
+      {/* 🧱 THE SCROLLING CONTENT LAYER */}
+      <div className="relative z-10 mt-[-100vh] py-24 md:py-32 px-6">
+        <div className="max-w-7xl mx-auto">
           
-          <motion.h2 
+          {/* 🔥 HEADER SECTION */}
+          <div className="flex flex-col items-center text-center mb-32 md:mb-48">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="flex items-center gap-3 mb-8"
+            >
+              <div className="h-[1px] w-8 md:w-12 bg-[#c8a24c]" />
+              <span className="text-[10px] md:text-[11px] font-bold uppercase tracking-[0.6em] text-[#c8a24c]">
+                The Gold Standard
+              </span>
+              <div className="h-[1px] w-8 md:w-12 bg-[#c8a24c]" />
+            </motion.div>
+            
+            <motion.h2 
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+              className="text-4xl sm:text-5xl md:text-8xl font-serif text-white max-w-5xl leading-[1.1] drop-shadow-2xl"
+            >
+              Built on <span className="text-[#c8a24c] italic">Foundations</span> <br className="hidden md:block" /> of Absolute Purity
+            </motion.h2>
+          </div>
+
+          {/* 🧱 FLOATING GRID */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 sm:gap-16 lg:gap-8 relative pb-20">
+            {features.map((item, index) => {
+              const Icon = item.icon;
+              return (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 60 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ delay: index * 0.15, duration: 0.8, ease: "easeOut" }}
+                  className={`relative flex flex-col items-center group ${item.offset}`}
+                >
+                  {/* ICON ORB - Refined Glassmorphism */}
+                  <div className="relative mb-8 md:mb-10">
+                    <div className="w-24 h-24 md:w-28 md:h-28 rounded-full bg-white/[0.03] backdrop-blur-md flex items-center justify-center relative z-10 border border-white/10 shadow-2xl group-hover:border-[#c8a24c]/60 group-hover:bg-[#c8a24c]/5 transition-all duration-500">
+                      <Icon className="w-8 h-8 md:w-10 md:h-10 text-[#c8a24c] group-hover:scale-110 transition-transform duration-500" />
+                    </div>
+                    {/* Animated Outer Ring */}
+                    <div className="absolute inset-[-8px] rounded-full border border-[#c8a24c]/10 group-hover:border-[#c8a24c]/30 group-hover:scale-110 transition-all duration-700" />
+                  </div>
+
+                  {/* TEXT CONTENT */}
+                  <div className="text-center px-4 sm:px-0 max-w-[280px]">
+                    <h3 className="text-xl md:text-2xl font-serif font-semibold text-white mb-3 group-hover:text-[#c8a24c] transition-colors duration-300">
+                      {item.title}
+                    </h3>
+                    <p className="text-xs md:text-sm text-gray-300/90 leading-relaxed font-light tracking-wide">
+                      {item.desc}
+                    </p>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+
+          {/* 🏷️ BOTTOM CERTIFICATION BAR */}
+          <motion.div 
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            className="text-4xl md:text-7xl font-serif text-[#0b3d33] max-w-4xl leading-[1.1]"
+            viewport={{ once: true }}
+            className="mt-24 md:mt-40 pt-16 border-t border-white/10 flex flex-wrap justify-center gap-x-12 md:gap-x-20 gap-y-8"
           >
-            Built on <span className="text-[#c8a24c] italic">Foundations</span> <br className="hidden md:block" /> of Absolute Purity
-          </motion.h2>
-        </div>
-
-        {/* 🧱 ORGANIC FLOATING GRID (No Boxes) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-4 relative">
-          
-          {/* Connector Line (Desktop Only) */}
-          <div className="hidden lg:block absolute top-1/2 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#c8a24c]/20 to-transparent z-0" />
-
-          {features.map((item, index) => {
-            const Icon = item.icon;
-            return (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.15 }}
-                className={`relative z-10 flex flex-col items-center group ${item.offset}`}
-              >
-                {/* FLOATING ICON ORB */}
-                <div className="relative mb-10">
-                  <motion.div 
-                    animate={{ y: [0, -10, 0] }}
-                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: index * 0.5 }}
-                    className="w-24 h-24 rounded-full bg-white shadow-[0_15px_40px_-10px_rgba(0,0,0,0.08)] flex items-center justify-center relative z-10 border border-emerald-50/50"
-                  >
-                    <Icon className="w-9 h-9 text-[#1F7A63] transition-transform duration-500 group-hover:scale-110" />
-                  </motion.div>
-                  
-                  {/* Outer Pulsing Halo */}
-                  <div className="absolute inset-[-15px] rounded-full border border-dashed border-[#c8a24c]/20 animate-[spin_20s_linear_infinite] opacity-0 group-hover:opacity-100 transition-opacity" />
-                  
-                  {/* Dot Indicator */}
-                  <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-[#c8a24c]" />
-                </div>
-
-                {/* TEXT CONTENT (Frameless) */}
-                <div className="text-center max-w-[240px] px-2">
-                  <h3 className="text-2xl font-serif font-bold text-[#0b3d33] mb-4 group-hover:text-[#c8a24c] transition-colors">
-                    {item.title}
-                  </h3>
-                  <p className="text-sm text-gray-500/90 leading-relaxed font-medium">
-                    {item.desc}
-                  </p>
-                </div>
-
-                {/* Number Watermark (Subtle) */}
-                <span className="absolute -top-10 left-1/2 -translate-x-1/2 text-[100px] font-black text-[#0b3d33]/[0.02] pointer-events-none select-none">
-                  0{index + 1}
+            {["Certified Organic", "ISO 22000", "Lab Tested", "Fair Trade"].map((cert, i) => (
+              <div key={i} className="flex items-center gap-3 group">
+                <ShieldCheck size={16} className="text-[#c8a24c] opacity-70 group-hover:opacity-100 transition-opacity" />
+                <span className="text-[10px] md:text-[11px] font-medium uppercase tracking-[0.3em] text-white/30 group-hover:text-white/60 transition-colors">
+                  {cert}
                 </span>
-              </motion.div>
-            );
-          })}
+              </div>
+            ))}
+          </motion.div>
         </div>
-
-        {/* 🏷️ CERTIFICATION BAR */}
-        <motion.div 
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          className="mt-40 flex flex-wrap justify-center items-center gap-x-12 gap-y-6"
-        >
-          {["Certified Organic", "ISO 22000", "Lab Tested", "Fair Trade"].map((cert, i) => (
-            <div key={i} className="flex items-center gap-2">
-              <ShieldCheck size={14} className="text-[#c8a24c]" />
-              <span className="text-[10px] font-black uppercase tracking-[0.3em] text-[#0b3d33]/40">
-                {cert}
-              </span>
-            </div>
-          ))}
-        </motion.div>
       </div>
+      
+      {/* Bottom Section Blend */}
+      <div className="absolute bottom-0 left-0 w-full h-48 bg-gradient-to-t from-black to-transparent pointer-events-none z-20" />
     </section>
   );
 }

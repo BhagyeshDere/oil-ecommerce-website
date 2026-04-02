@@ -40,7 +40,7 @@ export default function StandardHero() {
   const prevSlide = () => setCurrent((prev) => (prev === 0 ? HERO_SLIDES.length - 1 : prev - 1));
 
   return (
-    <section className="relative w-full h-[80vh] min-h-[600px] max-h-[800px] bg-[#0b3d33] overflow-hidden">
+    <section className="relative w-full min-h-screen md:h-[80vh] md:min-h-[700px] md:max-h-[900px] bg-[#0b3d33] overflow-hidden">
       
       {/* 🖼️ BACKGROUND LAYER */}
       <div className="absolute inset-0 z-0">
@@ -58,16 +58,17 @@ export default function StandardHero() {
               alt="Background"
               fill
               priority
-              className="object-cover brightness-[0.35] contrast-[1.1] object-[center_15%]"
+              className="object-cover brightness-[0.45] contrast-[1.05]"
+              sizes="100vw"
             />
             {/* 🌑 Centralized Radial Overlay for better text contrast */}
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(11,61,51,0.4)_100%)]" />
-            <div className="absolute inset-0 bg-black/20" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(11,61,51,0.5)_100%)]" />
+            <div className="absolute inset-0 bg-black/30 md:bg-black/20" />
           </motion.div>
         </AnimatePresence>
       </div>
 
-      <div className="relative z-10 h-full max-w-7xl mx-auto px-6 flex flex-col items-center justify-center text-center">
+      <div className="relative z-10 h-full max-w-7xl mx-auto px-6 py-20 flex flex-col items-center justify-center text-center">
         
         {/* 📝 CENTRALIZED CONTENT CONTAINER */}
         <div className="max-w-4xl flex flex-col items-center">
@@ -120,12 +121,13 @@ export default function StandardHero() {
         </div>
 
         {/* 🧭 NAVIGATION (Centralized at bottom) */}
-        <div className="absolute bottom-12 flex flex-col md:flex-row items-center gap-6 md:gap-10">
+        <div className="absolute bottom-10 flex flex-col md:flex-row items-center gap-6 md:gap-10">
           
           <div className="flex items-center gap-6">
             <button 
               onClick={prevSlide}
               className="text-white/40 hover:text-[#c8a24c] transition-colors p-2"
+              aria-label="Previous slide"
             >
               <ChevronLeft size={24} strokeWidth={1.5} />
             </button>
@@ -137,6 +139,7 @@ export default function StandardHero() {
                   key={idx}
                   onClick={() => setCurrent(idx)}
                   className="group py-2 focus:outline-none"
+                  aria-label={`Go to slide ${idx + 1}`}
                 >
                   <div className={`h-[2px] transition-all duration-700 rounded-full ${
                     current === idx ? "w-10 bg-[#c8a24c]" : "w-4 bg-white/20 group-hover:bg-white/40"
@@ -148,6 +151,7 @@ export default function StandardHero() {
             <button 
               onClick={nextSlide}
               className="text-white/40 hover:text-[#c8a24c] transition-colors p-2"
+              aria-label="Next slide"
             >
               <ChevronRight size={24} strokeWidth={1.5} />
             </button>
@@ -161,18 +165,16 @@ export default function StandardHero() {
           <motion.h2 
             key={current}
             initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 0.04, scale: 1 }}
+            animate={{ opacity: 0.03, scale: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 2 }}
-            className="text-white text-[20vw] font-serif font-black select-none uppercase leading-none"
+            className="text-white text-[22vw] font-serif font-black select-none uppercase leading-none opacity-[0.03]"
           >
             PRASATTI
           </motion.h2>
         </AnimatePresence>
       </div>
 
-      {/* Bottom transition to next section */}
-      <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-[#fcfcf9] to-transparent z-20" />
     </section>
   );
 }
