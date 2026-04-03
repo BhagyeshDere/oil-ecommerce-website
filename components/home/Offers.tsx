@@ -2,38 +2,35 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import Link from "next/link"; // ✅ Added Link import
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Plus, Sparkles, TrendingDown, ArrowRight, CheckCircle2, X, ShoppingBag } from "lucide-react";
 import { useCart } from "@/context/CartContext";
-
-const offers = [
-  { name: "Coconut Oil", volume: "5 Litres", price: 1999, oldPrice: 2100, image: "/images/oils/coconut.png", tag: "Best Seller" },
-  { name: "Groundnut Oil", volume: "5 Litres", price: 1999, oldPrice: 2100, image: "/images/oils/groundnut.png", tag: "Popular" },
-  { name: "Sesame Oil", volume: "5 Litres", price: 1999, oldPrice: 2100, image: "/images/oils/sesame.png", tag: "New Offer" },
-  { name: "Mustard Oil", volume: "5 Litres", price: 2050, oldPrice: 2100, image: "/images/oils/mustard.png", tag: "Limited" },
-];
+import { oils } from "@/data/oils"; // ✅ Imported master data
 
 export default function AdvancedOffers() {
   const { addToCart, cart } = useCart();
   const [showPopup, setShowPopup] = useState(false);
   const [lastAdded, setLastAdded] = useState<any>(null);
 
-  const handleAddToCart = (item: any, index: number) => {
+  const handleAddToCart = (item: any) => {
     const product = {
-      id: index + 1,
+      id: item.id,
       name: item.name,
       price: item.price,
-      image: item.image,
+      image: item.images[0], // ✅ Using first image from array
       quantity: 1,
     };
     addToCart(product);
     setLastAdded(product);
     setShowPopup(true);
-    setTimeout(() => setShowPopup(false), 5000); // Extended to 5s for better readability
+    setTimeout(() => setShowPopup(false), 5000);
   };
 
   const subtotal = cart.reduce((acc, curr) => acc + (curr.price * curr.quantity), 0);
+
+  // ✅ Take the first 4 oils for the "Seasonal Offerings" section
+  const displayOils = oils.slice(0, 4);
 
   return (
     <section className="relative py-20 md:py-32 px-4 md:px-10 overflow-hidden bg-[#fcfcf9] selection:bg-[#c8a24c]/20">
@@ -72,11 +69,16 @@ export default function AdvancedOffers() {
 
         {/* 🛒 PRODUCT GRID */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10">
-          {offers.map((item, i) => {
-            const savings = item.oldPrice - item.price;
+          {displayOils.map((item, i) => {
+            // ✅ Fallback logic for missing data fields
+            const oldPrice = item.originalPrice || item.price + 150;
+            const savings = oldPrice - item.price;
+            const volumeLabel = "5 Litres • Wood Pressed";
+            const badgeTag = i === 0 ? "Best Seller" : "Premium";
+
             return (
               <motion.div
-                key={i}
+                key={item.id}
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -84,35 +86,68 @@ export default function AdvancedOffers() {
                 whileHover={{ y: -12 }}
                 className="group relative bg-white rounded-[2.5rem] p-2 border border-gray-100 shadow-[0_10px_40px_-15px_rgba(0,0,0,0.05)] transition-all hover:shadow-[0_40px_70px_-20px_rgba(200,162,76,0.15)]"
               >
-                <div className="absolute top-6 right-6 z-20 flex flex-col items-end gap-2">
+                {/* SAVINGS TAG */}
+                <div className="absolute top-6 right-6 z-20 flex flex-col items-end gap-2 pointer-events-none">
                   <motion.div className="bg-[#0b3d33] text-white text-[9px] font-black px-3 py-1.5 rounded-lg flex items-center gap-1.5 shadow-xl">
                     <TrendingDown size={12} className="text-[#c8a24c]" />
                     SAVE ₹{savings}
                   </motion.div>
                   <span className="bg-white/90 backdrop-blur-md text-[#c8a24c] text-[8px] font-black px-2.5 py-1 rounded-md border border-[#c8a24c]/10 shadow-sm uppercase tracking-widest">
-                    {item.tag}
+                    {badgeTag}
                   </span>
                 </div>
 
-                <div className="relative aspect-[4/5] rounded-[2.2rem] bg-gradient-to-tr from-[#fcfcf9] via-white to-[#c8a24c]/5 overflow-hidden flex items-center justify-center p-8">
-                  <motion.div whileHover={{ scale: 1.1, rotate: -2, y: -5 }} className="relative w-full h-full z-10">
-                    <Image src={item.image} alt={item.name} fill className="object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.12)]" />
-                  </motion.div>
-                </div>
-
-                <div className="px-6 py-7 space-y-5">
-                  <div className="text-center">
-                    <h3 className="text-[#0b3d33] font-serif font-bold text-2xl group-hover:text-[#c8a24c] transition-colors duration-300">{item.name}</h3>
-                    <p className="text-[#8b5e34]/60 text-[10px] font-black tracking-[0.2em] uppercase mt-2">Reserved Batch • {item.volume}</p>
+                {/* 🔗 CLICKABLE PRODUCT AREA */}
+                <Link href={`/products/${item.id}`} className="block outline-none">
+                  {/* IMAGE */}
+                  <div className="relative aspect-[4/5] rounded-[2.2rem] bg-gradient-to-tr from-[#fcfcf9] via-white to-[#c8a24c]/5 overflow-hidden flex items-center justify-center p-8">
+                    <motion.div
+                      whileHover={{ scale: 1.1, rotate: -2, y: -5 }}
+                      className="relative w-full h-full z-10"
+                    >
+                      {item.images?.[0] ? (
+                        <Image
+                          src={item.images[0]}
+                          alt={item.name}
+                          fill
+                          className="object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.12)]"
+                        />
+                      ) : (
+                        <div className="w-full h-full bg-gray-50 rounded-2xl animate-pulse" />
+                      )}
+                    </motion.div>
                   </div>
-                  <div className="flex items-center justify-center gap-3">
-                    <span className="text-gray-300 line-through text-xs font-medium italic">₹{item.oldPrice}</span>
-                    <span className="text-2xl font-black text-[#0b3d33]">₹{item.price}</span>
-                  </div>
 
+                  {/* TITLE + INFO */}
+                  <div className="px-6 py-7 space-y-5 text-center">
+                    <h3 className="text-[#0b3d33] font-serif font-bold text-2xl group-hover:text-[#c8a24c] transition-colors duration-300">
+                      {item.name}
+                    </h3>
+
+                    <p className="text-[#8b5e34]/60 text-[10px] font-black tracking-[0.2em] uppercase mt-2">
+                      {volumeLabel}
+                    </p>
+
+                    <div className="flex items-center justify-center gap-3">
+                      <span className="text-gray-300 line-through text-xs font-medium italic">
+                        ₹{oldPrice}
+                      </span>
+                      <span className="text-2xl font-black text-[#0b3d33]">
+                        ₹{item.price}
+                      </span>
+                    </div>
+                  </div>
+                </Link>
+
+                {/* 🛒 ADD TO CART BUTTON */}
+                <div className="px-6 pb-6">
                   <motion.button
                     whileTap={{ scale: 0.96 }}
-                    onClick={() => handleAddToCart(item, i)}
+                    onClick={(e) => {
+                      e.preventDefault(); 
+                      e.stopPropagation();
+                      handleAddToCart(item);
+                    }}
                     className="group/btn relative w-full h-14 bg-[#0b3d33] rounded-2xl overflow-hidden flex items-center justify-center transition-all duration-500 shadow-lg"
                   >
                     <div className="absolute inset-0 bg-[#c8a24c] translate-y-full group-hover/btn:translate-y-0 transition-transform duration-500 ease-[0.22, 1, 0.36, 1]" />
@@ -151,7 +186,6 @@ export default function AdvancedOffers() {
             exit={{ opacity: 0, scale: 0.95 }}
             className="fixed top-6 right-6 z-[100] w-[340px] md:w-[400px] bg-white rounded-3xl shadow-[0_20px_60px_rgba(11,61,51,0.25)] border border-[#0b3d33]/5 overflow-hidden"
           >
-            {/* Header */}
             <div className="bg-[#e8f3f1] px-5 py-3 flex items-center justify-between border-b border-[#0b3d33]/5">
               <div className="flex items-center gap-2 text-[#0f7b65]">
                 <CheckCircle2 size={18} strokeWidth={3} />
@@ -162,7 +196,6 @@ export default function AdvancedOffers() {
               </button>
             </div>
 
-            {/* Product Info */}
             <div className="p-5 flex gap-5 items-center">
               <div className="relative w-20 h-24 bg-[#fcfcf9] rounded-xl flex-shrink-0 border border-gray-100 p-2">
                 {lastAdded && (
@@ -171,22 +204,19 @@ export default function AdvancedOffers() {
               </div>
               <div className="flex flex-col">
                 <span className="text-[#0b3d33] font-serif font-bold text-lg leading-tight">{lastAdded?.name}</span>
-                <span className="text-[#8b5e34] text-[10px] font-bold uppercase tracking-widest mt-1">5 Litres • Reserved Batch</span>
+                <span className="text-[#8b5e34] text-[10px] font-bold uppercase tracking-widest mt-1">5 Litres • Wood Pressed</span>
                 <div className="mt-2 flex items-baseline gap-2">
                   <span className="text-[#0b3d33] font-black text-xl">₹{lastAdded?.price.toLocaleString()}</span>
-                  <span className="text-gray-300 line-through text-[11px]">₹2,100</span>
                 </div>
               </div>
             </div>
 
-            {/* Subtotal & Action */}
             <div className="px-5 pb-5 pt-2 border-t border-gray-50 bg-[#fcfcf9]/50">
               <div className="flex justify-between items-center mb-4">
                 <span className="text-[11px] font-bold text-gray-400 uppercase tracking-widest">Subtotal ({cart.length} items):</span>
                 <span className="text-[#0b3d33] font-black text-lg">₹{subtotal.toLocaleString()}</span>
               </div>
               
-              {/* ✅ FIXED: Wrapped in Link to open Cart Page */}
               <Link 
                 href="/cart" 
                 onClick={() => setShowPopup(false)}
