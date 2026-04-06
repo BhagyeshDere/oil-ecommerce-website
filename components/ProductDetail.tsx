@@ -224,29 +224,6 @@ export default function ProductDetail({ product }: any) {
           </div>
         </div>
 
-        {/* 🌿 BENEFITS */}
-        <div className="mt-32">
-          <div className="text-center mb-16 space-y-4">
-            <h2 className="text-3xl md:text-5xl font-serif font-bold text-[#0b3d33]">The Purity Promise</h2>
-            <p className="text-gray-400 text-sm tracking-widest uppercase font-bold">What makes us different</p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {product.benefits.map((benefit: string, i: number) => (
-              <motion.div
-                key={i}
-                whileHover={{ y: -10 }}
-                className="bg-white p-10 rounded-[2.5rem] border border-gray-100 shadow-sm text-center space-y-4"
-              >
-                <div className="w-12 h-12 bg-[#c8a24c]/10 rounded-full flex items-center justify-center mx-auto text-[#c8a24c]">
-                  <Check size={24} />
-                </div>
-                <h4 className="text-[#0b3d33] font-bold text-lg">Benefit {i + 1}</h4>
-                <p className="text-gray-500 text-sm leading-relaxed">{benefit}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
 
         {/* 🔥 RELATED SECTION */}
         <div className="mt-32">

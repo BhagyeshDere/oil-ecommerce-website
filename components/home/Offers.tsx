@@ -6,7 +6,7 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Plus, Sparkles, TrendingDown, ArrowRight, CheckCircle2, X, ShoppingBag } from "lucide-react";
 import { useCart } from "@/context/CartContext";
-import { oils } from "@/data/oils"; // ✅ Imported master data
+import { oils } from "@/data/oils"; 
 
 export default function AdvancedOffers() {
   const { addToCart, cart } = useCart();
@@ -18,7 +18,7 @@ export default function AdvancedOffers() {
       id: item.id,
       name: item.name,
       price: item.price,
-      image: item.images[0], // ✅ Using first image from array
+      image: item.images[0], 
       quantity: 1,
     };
     addToCart(product);
@@ -28,8 +28,6 @@ export default function AdvancedOffers() {
   };
 
   const subtotal = cart.reduce((acc, curr) => acc + (curr.price * curr.quantity), 0);
-
-  // ✅ Take the first 4 oils for the "Seasonal Offerings" section
   const displayOils = oils.slice(0, 4);
 
   return (
@@ -42,7 +40,7 @@ export default function AdvancedOffers() {
         <div className="absolute inset-0 opacity-[0.03] bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]" />
       </div>
 
-      <div className="max-w-7xl mx-auto relative z-10">
+      <div className="max-w-[1400px] mx-auto relative z-10">
         
         {/* 🔥 HEADER SECTION */}
         <div className="flex flex-col items-center mb-16 md:mb-24">
@@ -67,10 +65,9 @@ export default function AdvancedOffers() {
           <div className="w-24 h-1 bg-[#c8a24c]/20 mt-8 rounded-full" />
         </div>
 
-        {/* 🛒 PRODUCT GRID */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10">
+        {/* 🛒 PRODUCT GRID - Updated for Single Line on Desktop */}
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 md:gap-8 lg:gap-10">
           {displayOils.map((item, i) => {
-            // ✅ Fallback logic for missing data fields
             const oldPrice = item.originalPrice || item.price + 150;
             const savings = oldPrice - item.price;
             const volumeLabel = "5 Litres • Wood Pressed";
@@ -97,9 +94,7 @@ export default function AdvancedOffers() {
                   </span>
                 </div>
 
-                {/* 🔗 CLICKABLE PRODUCT AREA */}
                 <Link href={`/products/${item.id}`} className="block outline-none">
-                  {/* IMAGE */}
                   <div className="relative aspect-[4/5] rounded-[2.2rem] bg-gradient-to-tr from-[#fcfcf9] via-white to-[#c8a24c]/5 overflow-hidden flex items-center justify-center p-8">
                     <motion.div
                       whileHover={{ scale: 1.1, rotate: -2, y: -5 }}
@@ -118,13 +113,12 @@ export default function AdvancedOffers() {
                     </motion.div>
                   </div>
 
-                  {/* TITLE + INFO */}
-                  <div className="px-6 py-7 space-y-5 text-center">
-                    <h3 className="text-[#0b3d33] font-serif font-bold text-2xl group-hover:text-[#c8a24c] transition-colors duration-300">
+                  <div className="px-4 md:px-6 py-7 space-y-5 text-center">
+                    <h3 className="text-[#0b3d33] font-serif font-bold text-xl md:text-2xl group-hover:text-[#c8a24c] transition-colors duration-300 line-clamp-1">
                       {item.name}
                     </h3>
 
-                    <p className="text-[#8b5e34]/60 text-[10px] font-black tracking-[0.2em] uppercase mt-2">
+                    <p className="text-[#8b5e34]/60 text-[9px] font-black tracking-[0.2em] uppercase mt-2">
                       {volumeLabel}
                     </p>
 
@@ -132,14 +126,13 @@ export default function AdvancedOffers() {
                       <span className="text-gray-300 line-through text-xs font-medium italic">
                         ₹{oldPrice}
                       </span>
-                      <span className="text-2xl font-black text-[#0b3d33]">
+                      <span className="text-xl md:text-2xl font-black text-[#0b3d33]">
                         ₹{item.price}
                       </span>
                     </div>
                   </div>
                 </Link>
 
-                {/* 🛒 ADD TO CART BUTTON */}
                 <div className="px-6 pb-6">
                   <motion.button
                     whileTap={{ scale: 0.96 }}
@@ -148,13 +141,12 @@ export default function AdvancedOffers() {
                       e.stopPropagation();
                       handleAddToCart(item);
                     }}
-                    className="group/btn relative w-full h-14 bg-[#0b3d33] rounded-2xl overflow-hidden flex items-center justify-center transition-all duration-500 shadow-lg"
+                    className="group/btn relative w-full h-12 md:h-14 bg-[#0b3d33] rounded-2xl overflow-hidden flex items-center justify-center transition-all duration-500 shadow-lg"
                   >
                     <div className="absolute inset-0 bg-[#c8a24c] translate-y-full group-hover/btn:translate-y-0 transition-transform duration-500 ease-[0.22, 1, 0.36, 1]" />
                     <div className="relative z-10 flex items-center gap-3 text-white group-hover/btn:text-[#0b3d33] transition-colors duration-500">
-                      <span className="text-[11px] font-black uppercase tracking-[0.2em]">Add to Cart</span>
-                      <div className="h-5 w-[1px] bg-white/20 group-hover/btn:bg-[#0b3d33]/20" />
-                      <Plus size={16} className="group-hover/btn:rotate-90 transition-transform duration-500" />
+                      <span className="text-[10px] md:text-[11px] font-black uppercase tracking-[0.2em]">Add to Cart</span>
+                      <Plus size={14} className="group-hover/btn:rotate-90 transition-transform duration-500" />
                     </div>
                   </motion.button>
                 </div>

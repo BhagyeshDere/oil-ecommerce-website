@@ -15,179 +15,186 @@ import {
   CheckCircle2,
   Leaf,
   Truck,
-  Award
+  Award,
+  ChevronLeft
 } from "lucide-react";
 
 export default function RegisterPage() {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <div className="min-h-screen w-full flex flex-col lg:flex-row bg-[#051a16] selection:bg-[#c8a24c]/30 selection:text-[#c8a24c]">
+    <div className="min-h-screen w-full bg-[#FCFAF7] selection:bg-[#c8a24c]/20 selection:text-[#8b5e34] flex flex-col items-center justify-center p-4 md:p-8">
       
-      {/* 🌿 LEFT PANEL: CLEAN EDITORIAL STYLE (Solid Background) */}
-      <div className="hidden lg:flex lg:w-[40%] xl:w-[45%] relative flex-col justify-between p-16 bg-[#041411] border-r border-white/5">
-        
-        {/* Brand Identity */}
-        <div className="relative z-10">
-          <Link href="/" className="flex items-center gap-3">
-            <Sparkles className="text-[#c8a24c] w-8 h-8" />
-            <span className="text-white font-serif text-3xl tracking-wider">Prasatti</span>
-          </Link>
-        </div>
+      {/* 🌿 AMBIENT BACKGROUND ELEMENTS */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute top-[-5%] left-[-10%] w-[500px] h-[500px] bg-[#0b3d33]/5 rounded-full blur-[120px]" />
+        <div className="absolute bottom-[-5%] right-[-10%] w-[500px] h-[500px] bg-[#c8a24c]/10 rounded-full blur-[120px]" />
+      </div>
 
-        {/* Value Propositions */}
-        <div className="relative z-10 space-y-12">
-          <motion.h1 
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            className="text-5xl font-serif text-white leading-tight"
-          >
-            Join our <span className="text-[#c8a24c] italic">Circle</span> of Purity.
-          </motion.h1>
+      {/* 🔗 BACK LINK */}
+      <Link 
+        href="/login" 
+        className="fixed top-8 left-8 z-50 flex items-center gap-2 text-[#0b3d33]/40 hover:text-[#0b3d33] transition-all font-bold text-[10px] uppercase tracking-widest group"
+      >
+        <ChevronLeft size={14} className="group-hover:-translate-x-1 transition-transform" />
+        Already a member?
+      </Link>
+
+      <div className="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
+        
+        {/* 🍃 LEFT SIDE: THE PROMISE (Visible on Desktop) */}
+        <div className="hidden lg:flex lg:col-span-5 flex-col space-y-12 pr-12">
+          <div>
+            <div className="h-12 w-12 bg-white border border-[#c8a24c]/20 rounded-2xl flex items-center justify-center shadow-sm mb-6">
+              <Sparkles className="text-[#c8a24c] w-6 h-6" />
+            </div>
+            <h1 className="text-5xl font-serif text-[#0b3d33] leading-[1.1] mb-6">
+              Join the <span className="text-[#c8a24c] italic">Circle</span> <br /> of Purity.
+            </h1>
+            <p className="text-[#8b5e34]/60 text-lg leading-relaxed">
+              Create an account to access our harvest-fresh reserves and traditional oil blends.
+            </p>
+          </div>
 
           <div className="space-y-8">
             {[
-              { icon: <Leaf size={24} />, title: "Authentic Sourcing", desc: "Access limited batches of harvest-fresh oils." },
-              { icon: <Award size={24} />, title: "Member Rewards", desc: "Earn 'Purity Points' on every organic purchase." },
-              { icon: <Truck size={24} />, title: "Priority Delivery", desc: "Standard free shipping for all registered members." },
+              { icon: Leaf, title: "Farm Traceability", desc: "Know the source of every drop." },
+              { icon: Award, title: "Purity Rewards", desc: "Earn points on every organic purchase." },
+              { icon: Truck, title: "Priority Fulfillment", desc: "Members get harvest-first shipping." },
             ].map((item, i) => (
               <motion.div 
                 key={i}
-                initial={{ opacity: 0, x: -10 }}
+                initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.2 + (i * 0.1) }}
-                className="flex gap-5 items-start"
+                transition={{ delay: i * 0.1 }}
+                className="flex gap-4"
               >
-                <div className="mt-1 text-[#c8a24c]">{item.icon}</div>
+                <div className="mt-1 h-10 w-10 shrink-0 rounded-full bg-[#0b3d33]/5 flex items-center justify-center">
+                  <item.icon size={18} className="text-[#0b3d33]" />
+                </div>
                 <div>
-                  <h4 className="text-white font-bold text-lg mb-1">{item.title}</h4>
-                  <p className="text-white/40 text-sm leading-relaxed">{item.desc}</p>
+                  <h4 className="text-[#0b3d33] font-bold text-sm tracking-tight">{item.title}</h4>
+                  <p className="text-[#8b5e34]/50 text-xs mt-0.5">{item.desc}</p>
                 </div>
               </motion.div>
             ))}
           </div>
-        </div>
 
-        {/* Trust Badges */}
-        <div className="relative z-10 flex gap-6 opacity-30">
-          <div className="flex flex-col gap-1">
-             <span className="text-[10px] font-black text-white uppercase tracking-widest">ISO 9001:2015</span>
-             <div className="h-[1px] w-full bg-[#c8a24c]/30" />
-          </div>
-          <div className="flex flex-col gap-1">
-             <span className="text-[10px] font-black text-white uppercase tracking-widest">Organic Certified</span>
-             <div className="h-[1px] w-full bg-[#c8a24c]/30" />
+          <div className="pt-8 border-t border-[#0b3d33]/5 flex gap-8 opacity-40">
+             <span className="text-[9px] font-black text-[#0b3d33] uppercase tracking-widest">FSSAI Certified</span>
+             <span className="text-[9px] font-black text-[#0b3d33] uppercase tracking-widest">ISO 22000</span>
           </div>
         </div>
-      </div>
 
-      {/* 🔒 RIGHT PANEL: FOCUS FORM (No Gradients) */}
-      <div className="flex-1 flex items-center justify-center p-6 md:p-12 lg:p-20 relative bg-[#051a16]">
-        
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="w-full max-w-[440px] relative z-10"
+        {/* 🔒 RIGHT SIDE: THE FORM CARD */}
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="lg:col-span-7"
         >
-          {/* Logo for Mobile Only */}
-          <div className="lg:hidden flex justify-center mb-10">
-            <Sparkles className="text-[#c8a24c] w-10 h-10" />
-          </div>
-
-          <header className="mb-10 text-center lg:text-left">
-            <h2 className="text-3xl font-serif text-white mb-3">Create Account</h2>
-            <p className="text-white/40 text-sm">Become a part of the Prasatti organic tradition today.</p>
-          </header>
-
-          <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+          <div className="bg-white rounded-[3rem] shadow-[0_32px_64px_-16px_rgba(11,61,51,0.08)] border border-white p-8 md:p-14 relative overflow-hidden">
             
-            {/* FULL NAME */}
-            <div className="space-y-2">
-              <label className="text-[10px] uppercase tracking-widest font-black text-white/30 ml-1">Full Name</label>
-              <div className="relative group">
-                <User className="absolute left-4 top-1/2 -translate-y-1/2 text-white/20 group-focus-within:text-[#c8a24c] transition-colors" size={18} />
-                <input
-                  type="text"
-                  placeholder="John Doe"
-                  className="w-full pl-12 pr-4 py-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-white/10 focus:border-[#c8a24c]/50 outline-none transition-all"
-                />
-              </div>
-            </div>
+            <header className="mb-10 lg:hidden text-center">
+              <h2 className="text-3xl font-serif text-[#0b3d33] font-bold mb-2">Join Prasatti</h2>
+              <p className="text-gray-400 text-sm">Experience the essence of purity</p>
+            </header>
 
-            {/* EMAIL */}
-            <div className="space-y-2">
-              <label className="text-[10px] uppercase tracking-widest font-black text-white/30 ml-1">Email Address</label>
-              <div className="relative group">
-                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-white/20 group-focus-within:text-[#c8a24c] transition-colors" size={18} />
-                <input
-                  type="email"
-                  placeholder="name@example.com"
-                  className="w-full pl-12 pr-4 py-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-white/10 focus:border-[#c8a24c]/50 outline-none transition-all"
-                />
+            <form className="grid grid-cols-1 md:grid-cols-2 gap-6" onSubmit={(e) => e.preventDefault()}>
+              
+              {/* FULL NAME */}
+              <div className="space-y-2 md:col-span-2 group">
+                <label className="text-[10px] uppercase tracking-widest font-black text-gray-400 ml-1 group-focus-within:text-[#0b3d33] transition-colors">
+                  Full Name
+                </label>
+                <div className="relative">
+                  <User className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-300 group-focus-within:text-[#c8a24c] transition-colors" size={18} />
+                  <input
+                    type="text"
+                    placeholder="Enter your name"
+                    className="w-full pl-12 pr-4 py-4 bg-[#f8f9fa] border border-transparent rounded-2xl text-[#0b3d33] placeholder:text-gray-300 focus:bg-white focus:border-[#c8a24c]/30 outline-none transition-all shadow-sm focus:shadow-md"
+                  />
+                </div>
               </div>
-            </div>
 
-            {/* PASSWORD */}
-            <div className="space-y-2">
-              <label className="text-[10px] uppercase tracking-widest font-black text-white/30 ml-1">Security Key</label>
-              <div className="relative group">
-                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-white/20 group-focus-within:text-[#c8a24c] transition-colors" size={18} />
-                <input
-                  type={showPassword ? "text" : "password"}
-                  placeholder="••••••••"
-                  className="w-full pl-12 pr-12 py-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-white/10 focus:border-[#c8a24c]/50 outline-none transition-all"
-                />
-                <button 
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-white/20 hover:text-white transition-colors"
+              {/* EMAIL ADDRESS */}
+              <div className="space-y-2 md:col-span-2 group">
+                <label className="text-[10px] uppercase tracking-widest font-black text-gray-400 ml-1 group-focus-within:text-[#0b3d33] transition-colors">
+                  Email Address
+                </label>
+                <div className="relative">
+                  <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-300 group-focus-within:text-[#c8a24c] transition-colors" size={18} />
+                  <input
+                    type="email"
+                    placeholder="name@example.com"
+                    className="w-full pl-12 pr-4 py-4 bg-[#f8f9fa] border border-transparent rounded-2xl text-[#0b3d33] placeholder:text-gray-300 focus:bg-white focus:border-[#c8a24c]/30 outline-none transition-all shadow-sm focus:shadow-md"
+                  />
+                </div>
+              </div>
+
+              {/* SECURITY KEY (PASSWORD) */}
+              <div className="space-y-2 md:col-span-2 group">
+                <label className="text-[10px] uppercase tracking-widest font-black text-gray-400 ml-1 group-focus-within:text-[#0b3d33] transition-colors">
+                  Create Security Key
+                </label>
+                <div className="relative">
+                  <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-300 group-focus-within:text-[#c8a24c] transition-colors" size={18} />
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    placeholder="••••••••"
+                    className="w-full pl-12 pr-12 py-4 bg-[#f8f9fa] border border-transparent rounded-2xl text-[#0b3d33] placeholder:text-gray-300 focus:bg-white focus:border-[#c8a24c]/30 outline-none transition-all shadow-sm focus:shadow-md"
+                  />
+                  <button 
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-300 hover:text-[#0b3d33] transition-colors"
+                  >
+                    {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                  </button>
+                </div>
+              </div>
+
+              {/* TERMS */}
+              <div className="md:col-span-2 flex items-start gap-3 px-1">
+                <div className="relative flex items-center justify-center mt-1">
+                  <input type="checkbox" className="peer appearance-none w-4 h-4 rounded border border-gray-200 checked:bg-[#0b3d33] checked:border-[#0b3d33] transition-all cursor-pointer shadow-sm" />
+                  <CheckCircle2 size={10} className="absolute text-white opacity-0 peer-checked:opacity-100 pointer-events-none" />
+                </div>
+                <p className="text-[11px] text-gray-400 leading-relaxed font-medium">
+                  By joining, I agree to the <Link href="#" className="text-[#c8a24c] font-black">Membership Terms</Link> and recognize Prasatti's <Link href="#" className="text-[#c8a24c] font-black">Data Privacy Standards</Link>.
+                </p>
+              </div>
+
+              {/* REGISTER BUTTON */}
+              <div className="md:col-span-2 pt-4">
+                <motion.button
+                  whileHover={{ scale: 1.01 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="w-full py-5 bg-[#0b3d33] text-white rounded-2xl font-black uppercase tracking-[0.2em] text-[11px] flex items-center justify-center gap-3 transition-all hover:bg-[#0f4d41] shadow-xl shadow-[#0b3d33]/10"
                 >
-                  {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
-                </button>
+                  <ShieldCheck size={18} className="text-[#c8a24c]" />
+                  Establish Account
+                  <ArrowRight size={18} />
+                </motion.button>
               </div>
-            </div>
+            </form>
 
-            {/* TERMS CHECKBOX */}
-            <div className="flex items-start gap-3 px-1 pt-1">
-              <div className="relative flex items-center justify-center mt-0.5">
-                <input type="checkbox" className="peer appearance-none w-4 h-4 rounded border border-white/20 checked:bg-[#c8a24c] transition-all cursor-pointer" />
-                <CheckCircle2 size={10} className="absolute text-[#051a16] opacity-0 peer-checked:opacity-100 pointer-events-none" />
-              </div>
-              <p className="text-[11px] text-white/40 leading-snug">
-                I agree to the <Link href="#" className="text-[#c8a24c] hover:underline">Terms of Service</Link> and <Link href="#" className="text-[#c8a24c] hover:underline">Privacy Policy</Link>.
-              </p>
-            </div>
-
-            {/* SUBMIT BUTTON */}
-            <motion.button
-              whileHover={{ scale: 1.01 }}
-              whileTap={{ scale: 0.98 }}
-              className="group w-full py-5 bg-[#c8a24c] hover:bg-[#d4b36d] text-[#051a16] rounded-xl font-black uppercase tracking-[0.2em] text-xs flex items-center justify-center gap-3 transition-all"
-            >
-              <ShieldCheck size={18} />
-              Create My Account
-              <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-            </motion.button>
-
-            {/* REDIRECT TO LOGIN */}
-            <div className="text-center pt-4">
-              <p className="text-sm text-white/30 font-medium">
-                Already have an account?{" "}
-                <Link href="/login" className="text-[#c8a24c] font-bold hover:underline underline-offset-4">
-                  Log in here
+            {/* REDIRECT */}
+            <div className="mt-8 pt-8 border-t border-gray-50 text-center">
+              <p className="text-xs text-gray-400 tracking-wide font-medium">
+                Part of the family? 
+                <Link href="/login" className="text-[#0b3d33] font-black ml-2 border-b-2 border-[#c8a24c] pb-0.5">
+                  Sign In
                 </Link>
               </p>
             </div>
-          </form>
-
-          {/* Standard Page Footer */}
-          <footer className="mt-16 flex flex-wrap justify-center gap-6 opacity-20 text-[9px] font-black text-white uppercase tracking-widest border-t border-white/5 pt-8">
-             <span>© 2026 Prasatti Organics</span>
-             <span>Customer Support</span>
-             <span>Legacy & Safety</span>
-          </footer>
+          </div>
         </motion.div>
       </div>
+
+      {/* FOOTER */}
+      <footer className="fixed bottom-8 w-full hidden md:flex justify-center opacity-30 pointer-events-none">
+        <span className="text-[9px] font-black text-[#0b3d33] uppercase tracking-[0.4em]">Prasatti Legacy Organics © 2026</span>
+      </footer>
     </div>
   );
 }

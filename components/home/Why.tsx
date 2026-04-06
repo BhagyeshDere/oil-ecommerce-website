@@ -7,12 +7,12 @@ import { Leaf, ThermometerSnowflake, HeartPulse, Sparkles, MoveRight } from "luc
 
 const slides = [
   {
-    img: "/images/wood-press-process.png",
+    img: "/images/woodpress.jpg",
     label: "Methodology",
     text: "Slow churned at 14 RPM to preserve the soul of the seed.",
   },
   {
-    img: "/images/oil-bg.png", // Replace with your actual slider images
+    img: "/images/oilbg.jpeg", // Replace with your actual slider images
     label: "Purity",
     text: "Natural sedimentation process without toxic filtration.",
   },

@@ -40,23 +40,23 @@ const features = [
 
 export default function AdvancedTrust() {
   return (
-    <section className="relative min-h-[140vh] w-full overflow-visible bg-black">
+    <section className="relative min-h-[140vh] w-full overflow-visible bg-[#051a16]">
       
-      {/* 🖼️ THE STICKY BACKGROUND LAYER - Brightened & Masked */}
+      {/* 🖼️ THE STICKY BACKGROUND LAYER */}
       <div className="sticky top-0 h-screen w-full overflow-hidden z-0">
         <Image
-          src="/images/oil-bg.png"
+          src="/images/oilbg.jpeg"
           alt="Purity Background"
           fill
-          className="object-cover opacity-80" // Removed brightness/contrast filters
+          className="object-cover opacity-60"
           priority
         />
         
-        {/* Advanced Radial Mask: Keeps center clear, fades edges to black */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_10%,black_90%)]" />
+        {/* Advanced Radial Mask: Fading to Deep Forest Green instead of Black */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,#051a16_85%)]" />
         
         {/* Vertical gradient to blend with surrounding sections */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black opacity-60" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#051a16] via-transparent to-[#051a16] opacity-80" />
         
         {/* Subtle Paper Texture */}
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/natural-paper.png')] opacity-5 pointer-events-none" />
@@ -75,7 +75,7 @@ export default function AdvancedTrust() {
               className="flex items-center gap-3 mb-8"
             >
               <div className="h-[1px] w-8 md:w-12 bg-[#c8a24c]" />
-              <span className="text-[10px] md:text-[11px] font-bold uppercase tracking-[0.6em] text-[#c8a24c]">
+              <span className="text-[10px] md:text-[11px] font-black uppercase tracking-[0.6em] text-[#c8a24c] drop-shadow-md">
                 The Gold Standard
               </span>
               <div className="h-[1px] w-8 md:w-12 bg-[#c8a24c]" />
@@ -86,7 +86,7 @@ export default function AdvancedTrust() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-              className="text-4xl sm:text-5xl md:text-8xl font-serif text-white max-w-5xl leading-[1.1] drop-shadow-2xl"
+              className="text-4xl sm:text-5xl md:text-8xl font-serif text-white max-w-5xl leading-[1.1] drop-shadow-[0_4px_12px_rgba(5,26,22,0.9)]"
             >
               Built on <span className="text-[#c8a24c] italic">Foundations</span> <br className="hidden md:block" /> of Absolute Purity
             </motion.h2>
@@ -105,21 +105,21 @@ export default function AdvancedTrust() {
                   transition={{ delay: index * 0.15, duration: 0.8, ease: "easeOut" }}
                   className={`relative flex flex-col items-center group ${item.offset}`}
                 >
-                  {/* ICON ORB - Refined Glassmorphism */}
+                  {/* ICON ORB - High Visibility Deep Green Glassmorphism */}
                   <div className="relative mb-8 md:mb-10">
-                    <div className="w-24 h-24 md:w-28 md:h-28 rounded-full bg-white/[0.03] backdrop-blur-md flex items-center justify-center relative z-10 border border-white/10 shadow-2xl group-hover:border-[#c8a24c]/60 group-hover:bg-[#c8a24c]/5 transition-all duration-500">
-                      <Icon className="w-8 h-8 md:w-10 md:h-10 text-[#c8a24c] group-hover:scale-110 transition-transform duration-500" />
+                    <div className="w-24 h-24 md:w-28 md:h-28 rounded-full bg-[#051a16]/60 backdrop-blur-xl flex items-center justify-center relative z-10 border border-white/10 shadow-2xl group-hover:border-[#c8a24c]/60 group-hover:bg-[#051a16]/80 transition-all duration-500">
+                      <Icon className="w-8 h-8 md:w-10 md:h-10 text-[#c8a24c] drop-shadow-[0_0_8px_rgba(200,162,76,0.3)] group-hover:scale-110 transition-transform duration-500" />
                     </div>
                     {/* Animated Outer Ring */}
-                    <div className="absolute inset-[-8px] rounded-full border border-[#c8a24c]/10 group-hover:border-[#c8a24c]/30 group-hover:scale-110 transition-all duration-700" />
+                    <div className="absolute inset-[-8px] rounded-full border border-[#c8a24c]/20 group-hover:border-[#c8a24c]/40 group-hover:scale-110 transition-all duration-700" />
                   </div>
 
-                  {/* TEXT CONTENT */}
+                  {/* TEXT CONTENT - Using Dark Green Scrim-Shadows for readability */}
                   <div className="text-center px-4 sm:px-0 max-w-[280px]">
-                    <h3 className="text-xl md:text-2xl font-serif font-semibold text-white mb-3 group-hover:text-[#c8a24c] transition-colors duration-300">
+                    <h3 className="text-xl md:text-2xl font-serif font-semibold text-white mb-3 group-hover:text-[#c8a24c] transition-colors duration-300 drop-shadow-[0_2px_8px_rgba(5,26,22,0.8)]">
                       {item.title}
                     </h3>
-                    <p className="text-xs md:text-sm text-gray-300/90 leading-relaxed font-light tracking-wide">
+                    <p className="text-xs md:text-sm text-gray-100/90 leading-relaxed font-light tracking-wide drop-shadow-[0_2px_4px_rgba(5,26,22,1)]">
                       {item.desc}
                     </p>
                   </div>
@@ -137,8 +137,8 @@ export default function AdvancedTrust() {
           >
             {["Certified Organic", "ISO 22000", "Lab Tested", "Fair Trade"].map((cert, i) => (
               <div key={i} className="flex items-center gap-3 group">
-                <ShieldCheck size={16} className="text-[#c8a24c] opacity-70 group-hover:opacity-100 transition-opacity" />
-                <span className="text-[10px] md:text-[11px] font-medium uppercase tracking-[0.3em] text-white/30 group-hover:text-white/60 transition-colors">
+                <ShieldCheck size={16} className="text-[#c8a24c] opacity-80 group-hover:opacity-100 transition-opacity" />
+                <span className="text-[10px] md:text-[11px] font-bold uppercase tracking-[0.3em] text-white/50 group-hover:text-white/80 transition-colors drop-shadow-sm">
                   {cert}
                 </span>
               </div>
@@ -147,8 +147,8 @@ export default function AdvancedTrust() {
         </div>
       </div>
       
-      {/* Bottom Section Blend */}
-      <div className="absolute bottom-0 left-0 w-full h-48 bg-gradient-to-t from-black to-transparent pointer-events-none z-20" />
+      {/* Bottom Section Blend - Using Dark Green */}
+      <div className="absolute bottom-0 left-0 w-full h-48 bg-gradient-to-t from-[#051a16] to-transparent pointer-events-none z-20" />
     </section>
   );
 }
