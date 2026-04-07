@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, Leaf, ChevronRight, ChevronLeft } from "lucide-react";
 
@@ -40,7 +41,7 @@ export default function StandardHero() {
   const prevSlide = () => setCurrent((prev) => (prev === 0 ? HERO_SLIDES.length - 1 : prev - 1));
 
   return (
-    <section className="relative w-full min-h-screen md:h-[80vh] md:min-h-[700px] md:max-h-[900px] bg-[#0b3d33] overflow-hidden">
+    <section className="relative w-full min-h-screen md:h-[85vh] bg-[#0b3d33] overflow-hidden flex items-center justify-center">
       
       {/* 🖼️ BACKGROUND LAYER */}
       <div className="absolute inset-0 z-0">
@@ -68,7 +69,7 @@ export default function StandardHero() {
         </AnimatePresence>
       </div>
 
-      <div className="relative z-10 h-full max-w-7xl mx-auto px-6 py-20 flex flex-col items-center justify-center text-center">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 py-20 flex flex-col items-center justify-center text-center">
         
         {/* 📝 CENTRALIZED CONTENT CONTAINER */}
         <div className="max-w-4xl flex flex-col items-center">
@@ -104,25 +105,36 @@ export default function StandardHero() {
                 {HERO_SLIDES[current].desc}
               </p>
 
-              {/* Action Buttons */}
-              <div className="flex flex-wrap justify-center gap-4">
-                <button className="group relative px-10 py-4 bg-[#c8a24c] text-[#0b3d33] font-black rounded-full overflow-hidden transition-all hover:shadow-[0_10px_40px_rgba(200,162,76,0.4)] active:scale-95">
-                  <span className="relative z-10 flex items-center gap-3 tracking-widest text-xs uppercase">
-                    Shop Now <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-                  </span>
-                </button>
+              {/* 🔗 ACTION BUTTONS */}
+              <div className="flex flex-col sm:flex-row justify-center gap-4 w-full sm:w-auto">
+                <Link href="/products" className="w-full sm:w-auto">
+                  <motion.button 
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="group relative w-full sm:w-auto px-10 py-4 bg-[#c8a24c] text-[#0b3d33] font-black rounded-full overflow-hidden transition-all hover:shadow-[0_10px_40px_rgba(200,162,76,0.4)]"
+                  >
+                    <span className="relative z-10 flex items-center justify-center gap-3 tracking-widest text-xs uppercase">
+                      Shop Now <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                    </span>
+                  </motion.button>
+                </Link>
                 
-                <button className="px-10 py-4 border border-white/20 text-white font-bold rounded-full hover:bg-white/5 transition-all text-xs tracking-widest uppercase backdrop-blur-sm">
-                  Our Story
-                </button>
+                <Link href="/about" className="w-full sm:w-auto">
+                  <motion.button 
+                    whileHover={{ backgroundColor: "rgba(255,255,255,0.1)" }}
+                    whileTap={{ scale: 0.98 }}
+                    className="w-full sm:w-auto px-10 py-4 border border-white/20 text-white font-bold rounded-full transition-all text-xs tracking-widest uppercase backdrop-blur-sm"
+                  >
+                    Our Story
+                  </motion.button>
+                </Link>
               </div>
             </motion.div>
           </AnimatePresence>
         </div>
 
         {/* 🧭 NAVIGATION (Centralized at bottom) */}
-        <div className="absolute bottom-10 flex flex-col md:flex-row items-center gap-6 md:gap-10">
-          
+        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-6">
           <div className="flex items-center gap-6">
             <button 
               onClick={prevSlide}
@@ -159,7 +171,7 @@ export default function StandardHero() {
         </div>
       </div>
 
-      {/* 🏷️ BACKGROUND WATERMARK (Centered behind text) */}
+      {/* 🏷️ BACKGROUND WATERMARK */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0">
         <AnimatePresence mode="wait">
           <motion.h2 
