@@ -17,7 +17,7 @@ const slides = [
     text: "Natural sedimentation process without toxic filtration.",
   },
   {
-    img: "/images/hero-oil1.png", // Replace with your actual slider images
+    img: "/images/oilbottles.png", // Replace with your actual slider images
     label: "Harvest",
     text: "Sourced from sun-dried, pesticide-free local farms.",
   }
