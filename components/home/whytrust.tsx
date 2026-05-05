@@ -45,7 +45,7 @@ export default function AdvancedTrust() {
       {/* 🖼️ THE STICKY BACKGROUND LAYER */}
       <div className="sticky top-0 h-screen w-full overflow-hidden z-0">
         <Image
-          src="/images/oilbg1.jpeg"
+          src="/images/oilbg.jpeg"
           alt="Purity Background"
           fill
           className="object-cover opacity-60"
