@@ -116,13 +116,7 @@ export default function AdvancedCategories() {
                     {item.name}
                   </h3>
                   
-                  {/* EXPLORE BUTTON REVEAL */}
-                  <div className="flex items-center gap-2 text-white/0 group-hover:text-white transition-all duration-500 overflow-hidden">
-                    <span className="text-xs font-black uppercase tracking-widest translate-x-[-20px] group-hover:translate-x-0 transition-transform">
-                      Explore Details
-                    </span>
-                    <ArrowUpRight size={16} className="translate-y-4 group-hover:translate-y-0 transition-transform" />
-                  </div>
+                
                 </motion.div>
               </div>
 

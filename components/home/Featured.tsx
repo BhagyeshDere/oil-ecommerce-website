@@ -117,23 +117,7 @@ export default function AdvancedFeatured() {
               ))}
             </div>
 
-            {/* Interactive CTA Group */}
-            <div className="flex flex-col sm:flex-row items-center gap-6 pt-4">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.98 }}
-                className="group relative w-full sm:w-auto px-10 py-5 bg-[#0b3d33] text-white rounded-full overflow-hidden transition-all shadow-2xl shadow-[#0b3d33]/20"
-              >
-                <div className="absolute inset-0 bg-[#c8a24c] translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
-                <span className="relative z-10 flex items-center justify-center gap-3 font-bold text-sm uppercase tracking-widest">
-                  Shop This Blend <ShoppingBag size={18} />
-                </span>
-              </motion.button>
-
-              <button className="flex items-center gap-3 text-[#0b3d33] font-black text-xs uppercase tracking-widest group hover:text-[#c8a24c] transition-colors">
-                View Lab Reports <MoveRight size={18} className="group-hover:translate-x-2 transition-transform" />
-              </button>
-            </div>
+          
           </motion.div>
         </div>
       </div>

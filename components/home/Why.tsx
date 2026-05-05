@@ -189,22 +189,7 @@ export default function AdvancedWhy() {
               ))}
             </div>
 
-            {/* ACTION CTA */}
-            <div className="flex flex-col sm:flex-row items-center gap-6 md:gap-8 pt-4">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.98 }}
-                className="group w-full sm:w-auto flex items-center justify-center gap-4 px-8 py-4 bg-[#0b3d33] text-white rounded-full font-bold text-xs uppercase tracking-widest shadow-2xl shadow-[#0b3d33]/20 overflow-hidden relative"
-              >
-                <div className="absolute inset-0 bg-[#c8a24c] translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-500" />
-                <span className="relative z-10">Compare Processes</span>
-                <MoveRight size={18} className="relative z-10 group-hover:translate-x-2 transition-transform" />
-              </motion.button>
-              
-              <button className="text-[#0b3d33] font-black text-[10px] uppercase tracking-[0.3em] border-b-2 border-[#c8a24c] pb-1 hover:text-[#c8a24c] transition-all">
-                Our Lab Certifications
-              </button>
-            </div>
+            
           </motion.div>
         </div>
       </div>
